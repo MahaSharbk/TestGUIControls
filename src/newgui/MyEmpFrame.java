@@ -5,12 +5,17 @@
  */
 package newgui;
 
+import java.awt.Dimension;
+import java.awt.GridLayout;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.text.DateFormat;
 import java.util.Locale;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import java.util.Date;
 import java.text.SimpleDateFormat;
+import javax.swing.*;
 
 
 
@@ -28,6 +33,50 @@ public class MyEmpFrame extends javax.swing.JFrame {
         DefaultComboBoxModel model=new DefaultComboBoxModel(new String[]{"Homs","Damas"});
         this.cities.setModel(model);
         this.cities.addItem("Hamah");
+        this.empType.addItem("Part-Time");
+        this.empType.addItem("Full-Time");
+        
+        this.empType.addItemListener(new ItemListener() {
+            @Override
+            public void itemStateChanged(ItemEvent evt) {
+       JComboBox cb = (JComboBox) evt.getSource();
+ 
+    if (evt.getStateChange() == ItemEvent.SELECTED) {
+      // Item was just selected
+       empPanel.removeAll();
+       
+ empPanel.setLayout(new GridLayout(2,2));
+      if(cb.getSelectedItem().toString().equals("Part-Time")){
+           JTextField hourWage=new JTextField();
+              JLabel hourWage_label=new JLabel("Hour wage");
+          JTextField HoursInWeek=new JTextField();
+          JLabel HoursInWeek_label=new JLabel("Hours in Week");
+          empPanel.add(hourWage_label);
+          empPanel.add(hourWage);
+           empPanel.add(HoursInWeek_label);
+          empPanel.add(HoursInWeek);
+        }
+      else  if(cb.getSelectedItem().toString().equals("Full-Time")){
+           JTextField salary=new JTextField();
+         // salary.setPreferredSize(new Dimension(100,20));
+          JLabel salary_label=new JLabel("Salary");
+          JTextField daysInWeek=new JTextField();
+          // daysInWeek.setPreferredSize(new Dimension(100,20));
+          JLabel daysInWeek_label=new JLabel("Days in week");
+          empPanel.add(salary_label);
+            empPanel.add(salary);
+             empPanel.add(daysInWeek_label);
+            empPanel.add(daysInWeek);
+      }
+      
+         
+    } 
+     
+    
+   empPanel.revalidate();
+   empPanel.repaint();
+            }
+        });
         
         this.male.setActionCommand("male");
         this.female.setActionCommand("female");
@@ -52,6 +101,8 @@ public class MyEmpFrame extends javax.swing.JFrame {
         female = new javax.swing.JRadioButton();
         empActive = new javax.swing.JCheckBox();
         dateChooserCombo2 = new datechooser.beans.DateChooserCombo();
+        empPanel = new javax.swing.JPanel();
+        empType = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -117,35 +168,53 @@ public class MyEmpFrame extends javax.swing.JFrame {
     dateChooserCombo2.setCalendarPreferredSize(new java.awt.Dimension(330, 220));
     dateChooserCombo2.setFormat(2);
 
+    javax.swing.GroupLayout empPanelLayout = new javax.swing.GroupLayout(empPanel);
+    empPanel.setLayout(empPanelLayout);
+    empPanelLayout.setHorizontalGroup(
+        empPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        .addGap(0, 165, Short.MAX_VALUE)
+    );
+    empPanelLayout.setVerticalGroup(
+        empPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        .addGap(0, 98, Short.MAX_VALUE)
+    );
+
     javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
     getContentPane().setLayout(layout);
     layout.setHorizontalGroup(
         layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-        .addGroup(layout.createSequentialGroup()
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(129, 129, 129)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(75, 75, 75)
-                    .addComponent(empActive, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE)))
-            .addGap(29, 29, 29)
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addComponent(submit, javax.swing.GroupLayout.PREFERRED_SIZE, 348, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(230, Short.MAX_VALUE))
-                .addGroup(layout.createSequentialGroup()
-                    .addComponent(cities, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(male)
-                    .addGap(57, 57, 57))))
         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
             .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(female)
+            .addGap(32, 32, 32))
+        .addGroup(layout.createSequentialGroup()
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(129, 129, 129)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(75, 75, 75)
+                        .addComponent(empActive, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                    .addGap(55, 55, 55)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(empPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(empType, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE))))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                    .addComponent(female)
-                    .addGap(32, 32, 32))
-                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGroup(layout.createSequentialGroup()
+                    .addGap(29, 29, 29)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(submit, javax.swing.GroupLayout.PREFERRED_SIZE, 348, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addContainerGap(230, Short.MAX_VALUE))
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(cities, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(male)
+                            .addGap(57, 57, 57))))
+                .addGroup(layout.createSequentialGroup()
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(dateChooserCombo2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGap(291, 291, 291))))
     );
@@ -164,14 +233,22 @@ public class MyEmpFrame extends javax.swing.JFrame {
                     .addComponent(male)))
             .addGap(18, 18, 18)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(empActive, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(layout.createSequentialGroup()
                     .addComponent(female)
                     .addGap(26, 26, 26)
-                    .addComponent(submit, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)))
-            .addGap(48, 48, 48)
-            .addComponent(dateChooserCombo2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addContainerGap(168, Short.MAX_VALUE))
+                    .addComponent(submit, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createSequentialGroup()
+                    .addComponent(empActive, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(55, 55, 55)
+                    .addComponent(empType, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addGap(39, 39, 39)
+                    .addComponent(dateChooserCombo2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createSequentialGroup()
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(empPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+            .addContainerGap(124, Short.MAX_VALUE))
     );
 
     pack();
@@ -235,6 +312,8 @@ public class MyEmpFrame extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> cities;
     private datechooser.beans.DateChooserCombo dateChooserCombo2;
     private javax.swing.JCheckBox empActive;
+    private javax.swing.JPanel empPanel;
+    private javax.swing.JComboBox<String> empType;
     private javax.swing.JRadioButton female;
     private javax.swing.ButtonGroup gender;
     private javax.swing.JLabel jLabel1;
